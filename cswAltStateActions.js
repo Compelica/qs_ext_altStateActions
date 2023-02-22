@@ -92,7 +92,25 @@ define(["jquery", "qlik"], function ($, qlik) {
                                     label: "Button Label: Clear Alt State",
                                     defaultValue: "Clear Alt. State",
                                     expression: "optional"
-                                }
+                                }, {
+                                    type: "string",
+                                    ref: "labelCopyButton3",
+                                    label: "Button Label: Alt State 1 to Alt State 2",
+                                    defaultValue: "Copy Alt State 1 to Alt State 2",
+                                    expression: "optional"
+								}, {
+                                    type: "string",
+                                    ref: "labelCopyButton4",
+                                    label: "Button Label: Alt State 2 to Alt State 1",
+                                    defaultValue: "Copy Alt State 2 to Alt State 1",
+                                    expression: "optional"
+								}, {
+                                    type: "string",
+                                    ref: "textboxDestinationState",
+                                    label: "Destination State",
+                                    defaultValue: "Alternate State name",
+                                    expression: "optional"
+								}
                             ]
                         }
                     }
@@ -131,6 +149,14 @@ define(["jquery", "qlik"], function ($, qlik) {
                     html += '<button class="lui-button" style="' + layout.enterStyle + '" id="' + ownId + 'Copy2">';
                     html += layout.labelCopyButton2 + '</button>';
                 }
+				if (layout.labelCopyButton3.length > 0) {
+                    html += '<button class="lui-button" style="' + layout.enterStyle + '" id="' + ownId + 'Copy3">';
+                    html += layout.labelCopyButton3 + '</button>';
+                }
+				if (layout.labelCopyButton4.length > 0) {
+                    html += '<button class="lui-button" style="' + layout.enterStyle + '" id="' + ownId + 'Copy4">';
+                    html += layout.labelCopyButton4 + '</button>';
+                }
                 if (layout.labelClearButton1.length > 0) {
                     html += '<button class="lui-button" style="' + layout.enterStyle + '" id="' + ownId + 'Clear1">';
                     html += layout.labelClearButton1 + '</button>';
@@ -147,6 +173,14 @@ define(["jquery", "qlik"], function ($, qlik) {
 
                 $element.find("#" + ownId + 'Copy2').on("click", function () {
                     copyStates(app, layout.qStateName, "$");
+                });
+				
+				$element.find("#" + ownId + 'Copy3').on("click", function () {
+                    copyStates(app, layout.qStateName, layout.textboxDestinationState);
+                });
+				
+				$element.find("#" + ownId + 'Copy4').on("click", function () {
+                    copyStates(app, layout.textboxDestinationState, layout.qStateName);
                 });
 
                 $element.find("#" + ownId + 'Clear1').on("click", function () {
